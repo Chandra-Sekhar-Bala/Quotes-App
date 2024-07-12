@@ -25,9 +25,13 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.chandrasekar.quotes.R
 import com.chandrasekar.quotes.ui.Colors.Colors
 
 @Composable
@@ -131,11 +135,10 @@ fun QuoteItemDetails(modifier: Modifier) {
                 )
                 Text(
                     text = "Bohot hard bohot hard bro bro",
-                    style = MaterialTheme.typography.headlineLarge,
-                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = FontFamily(Font(R.font.outfit_bold)),
+                    fontSize = 32.sp,
                     modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp)
                 )
-
                 Box(
                     modifier = Modifier
                         .height(0.6.dp)
@@ -144,8 +147,9 @@ fun QuoteItemDetails(modifier: Modifier) {
                 )
                 Text(
                     text = "Author name",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(0.dp, 6.dp, 0.dp, 0.dp)
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(0.dp, 4.dp, 0.dp, 0.dp),
+                    fontFamily = FontFamily(Font(R.font.outfit_regular)),
                 )
             }
         }
