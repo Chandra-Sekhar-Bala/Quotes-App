@@ -45,7 +45,7 @@ fun QuoteListing(quotes: List<Quote>, onClick: (Quote) -> Unit) {
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth(1f)
-                    .padding(8.dp, 16.dp),
+                    .padding(8.dp, 24.dp),
                 fontFamily = FontFamily(Font(R.font.outfit_medium))
             )
             LazyColumn(state = listState) {
