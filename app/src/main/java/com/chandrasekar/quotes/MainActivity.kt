@@ -3,21 +3,20 @@ package com.chandrasekar.quotes
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.chandrasekar.quotes.ui.screens.PreviewQuoteDetails
+import com.chandrasekar.quotes.data.DataHandler
+import com.chandrasekar.quotes.data.Pages
+import com.chandrasekar.quotes.ui.screens.QuoteItemDetails
+import com.chandrasekar.quotes.ui.screens.QuoteListing
 import com.chandrasekar.quotes.ui.theme.QuotesTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        DataHandler.loadData()
         setContent {
             QuotesTheme {
-                PreviewQuoteDetails(Modifier)
+                App()
             }
         }
         
@@ -25,17 +24,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun App() {
+    if (DataHandler.isDataLoaded.value) {
+        when (DataHandler.currentPage.value) {
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    QuotesTheme {
-        Greeting("Android")
+            Pages.LISTING -> {
+                QuoteListing(quotes = DataHandler.data) {
+                    DataHandler.switchPages(it)
+                }
+            }
+
+            Pages.DETAIL -> {
+                DataHandler.currentQuote?.let { QuoteItemDetails(quote = it) }
+            }
+        }
+    } else {
+
+
     }
 }
