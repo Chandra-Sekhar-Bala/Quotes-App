@@ -7,4 +7,5 @@ object Colors {
     val WhiteBGColor = Color(0xFFF6F6F6)
     val Violet = Color(0xFF673AB7)
     val Yellow = Color(0xFFFFFF00)
+    val Lavender = Color(0xFFD8BFD8)
 }

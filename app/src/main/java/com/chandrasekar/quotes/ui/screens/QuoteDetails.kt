@@ -3,9 +3,11 @@ package com.chandrasekar.quotes.ui.screens
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FormatQuote
+import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chandrasekar.quotes.R
@@ -32,8 +36,13 @@ import com.chandrasekar.quotes.data.DataHandler
 import com.chandrasekar.quotes.data.model.Quote
 import com.chandrasekar.quotes.ui.Colors.Colors
 
+@Preview(heightDp = 500)
 @Composable
-fun QuoteItemDetails(quote: Quote) {
+private fun PreviewQuoteDetails() {
+    QuoteDetails(Quote("Sample", "Sample"), {})
+}
+@Composable
+fun QuoteDetails(quote: Quote, onCopyClicked: (Quote) -> Unit) {
 
     BackHandler {
         DataHandler.switchPages(null)
@@ -82,15 +91,27 @@ fun QuoteItemDetails(quote: Quote) {
                 Box(
                     modifier = Modifier
                         .height(0.6.dp)
-                        .fillMaxWidth(.7f)
+                        .fillMaxWidth(.5f)
                         .background(color = Color.Black)
                 )
-                Text(
-                    text = quote.author,
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(0.dp, 4.dp, 0.dp, 0.dp),
-                    fontFamily = FontFamily(Font(R.font.outfit_regular)),
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(1f)
+                        .padding(0.dp, 4.dp, 0.dp, 0.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = quote.author,
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily(Font(R.font.outfit_regular)),
+                    )
+                    Image(
+                        imageVector = Icons.Outlined.ContentCopy,
+                        contentDescription = "Copy Button",
+                        modifier = Modifier.clickable { onCopyClicked(quote) }
+                    )
+                }
             }
         }
     }
